@@ -30,15 +30,15 @@ def generate(length, lower_case, upper_case, numeric, special_character):
 	if special_character:
 		password = random.choice(string.punctuation) + password
 
-	if len(password) < length:
-		diff = length - len(password)
+	if len(password) < length - 1:
+		diff = length - 1 - len(password)
 		if special_character:
 			password = ''.join(random.choices(string.punctuation, k=diff)) + password
-		if numeric:
+		elif numeric:
 			password = password + ''.join(random.choices(string.digits, k=diff))
-		if upper_case:
+		elif upper_case:
 			password = ''.join(random.choices(string.ascii_uppercase, k=diff)) + password
-		if lower_case:
+		elif lower_case:
 			password = password + ''.join(random.choices(string.ascii_lowercase, k=diff))
 
 
