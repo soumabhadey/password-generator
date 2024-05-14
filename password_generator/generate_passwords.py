@@ -16,14 +16,20 @@ def generate(length, lower_case, upper_case, numeric, special_character):
 	password = list(password)
 	random.shuffle(password)
 
-	password = random.choices(password, k=int(length)-1)
+	password = random.choices(password, k=int(length)-5)
 
 	password = ''.join(password)
+	
+	password = password + random.choice(string.ascii_lowercase)
+	password = random.choice(string.ascii_uppercase) + password
+	password = password + random.choice(string.digits)
+	password = random.choice(string.punctuation) + password
+
 	if lower_case and upper_case :
 		password = random.choice(string.ascii_letters) + password
 	elif lower_case :
 		password = random.choice(string.ascii_lowercase) + password
-	
+
 	return password
 
 
