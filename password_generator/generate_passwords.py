@@ -2,6 +2,7 @@ import random
 import string
 
 def generate(length, lower_case, upper_case, numeric, special_character):
+	length = int(length)
 	password = ""
 	
 	if lower_case:
@@ -32,13 +33,13 @@ def generate(length, lower_case, upper_case, numeric, special_character):
 	if len(password) < length:
 		diff = length - len(password)
 		if special_character:
-			password = random.choices(string.punctuation, k=diff) + password
+			password = ''.join(random.choices(string.punctuation, k=diff)) + password
 		if numeric:
-			password = password + random.choices(string.digits, k=diff)
+			password = password + ''.join(random.choices(string.digits, k=diff))
 		if upper_case:
-			password = random.choices(string.ascii_uppercase, k=diff) + password
+			password = ''.join(random.choices(string.ascii_uppercase, k=diff)) + password
 		if lower_case:
-			password = password + random.choices(string.ascii_lowercase, k=diff)
+			password = password + ''.join(random.choices(string.ascii_lowercase, k=diff))
 
 
 	if lower_case and upper_case :
