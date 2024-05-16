@@ -2,50 +2,58 @@ import random
 import string
 
 def generate(length, lower_case, upper_case, numeric, special_character):
-	length = int(length)
-	password = ""
-	
+	password = []
 	if lower_case:
-		password = password + string.ascii_lowercase
+		password.extend(string.ascii_lowercase)
 	if upper_case:
-		password = password + string.ascii_uppercase
+		password.extend(string.ascii_uppercase)
 	if numeric:
-		password = password + string.digits
+		password.extend(string.digits)
 	if special_character:
-		password = password + string.punctuation
-	
-	password = list(password)
+		password.extend(string.punctuation)
+
 	random.shuffle(password)
 
-	password = random.choices(password, k=int(length)-5)
+	password_length = length - 5
 
-	password = ''.join(password)
+	password = random.choices(password, k=password_length)
+
 	
 	if lower_case:
-		password = password + random.choice(string.ascii_lowercase)
+		password.insert(random.randint(0, password_length), random.choice(string.ascii_lowercase))
+		password_length += 1
 	if upper_case:
-		password = random.choice(string.ascii_uppercase) + password
+		password.insert(random.randint(0, password_length), random.choice(string.ascii_uppercase))
+		password_length += 1
 	if numeric:
-		password = password + random.choice(string.digits)
+		password.insert(random.randint(0, password_length), random.choice(string.digits))
+		password_length += 1
 	if special_character:
-		password = random.choice(string.punctuation) + password
+		password.insert(random.randint(0, password_length), random.choice(string.punctuation))
+		password_length += 1
 
-	if len(password) < length - 1:
-		diff = length - 1 - len(password)
+	if password_length < length - 1:
+		diff = length - 1 - password_length
 		if special_character:
-			password = ''.join(random.choices(string.punctuation, k=diff)) + password
+			password[:0] = random.choices(string.punctuation, k=diff)
 		elif numeric:
-			password = password + ''.join(random.choices(string.digits, k=diff))
+			password[:0] = random.choices(string.digits, k=diff)
 		elif upper_case:
-			password = ''.join(random.choices(string.ascii_uppercase, k=diff)) + password
+			password[:0] = random.choices(string.ascii_uppercase, k=diff)
 		elif lower_case:
-			password = password + ''.join(random.choices(string.ascii_lowercase, k=diff))
+			password[:0] = random.choices(string.ascii_lowercase, k=diff)
+		
+		password_length = length - 1
 
 
 	if lower_case and upper_case :
-		password = random.choice(string.ascii_letters) + password
+		password.insert(0, random.choice(string.ascii_letters))
 	elif lower_case :
-		password = random.choice(string.ascii_lowercase) + password
+		password.insert(0, random.choice(string.ascii_lowercase))
+
+	password_length = length
+
+	password = ''.join(password)
 
 	return password
 
